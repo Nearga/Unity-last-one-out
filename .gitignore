@@ -1,0 +1,70 @@
+# =============== #
+# Unity generated #
+# =============== #
+Temp/
+Obj/
+UnityGenerated/
+Library/
+  
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+  
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# ============ #
+# Monkey Talk #
+# ============ #
+
+Test/MonkeyTalk/reports
+Test/MonkeyTalk/screenshots
+
+*.pdc
+
+*.pdc
+
+*.fobj
+
+*.event
+
+*.wav
+
+*.audiofile
+
+*.group
+
+*.input
+
+Assets/Audio/Build/GUIDs.txt.meta
+
+# Console Extended plugin
+Assets/ConsoleE
+Assets/ConsoleE.meta
+
+# Reporter plugin
+Assets/StreamingAssets/build_info.txt
+Assets/StreamingAssets/build_info.txt.meta
+
+# PlayerPrefs viewer plugin
+Assets/AdvancedPlayerPrefsWindow
+Assets/AdvancedPlayerPrefsWindow.meta

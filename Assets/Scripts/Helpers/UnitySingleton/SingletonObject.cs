@@ -1,0 +1,86 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class SingletonObject : MonoBehaviour {
+
+	public virtual void OnSngletonDestroyed() { }
+}
+
+public abstract class SingletonObject<T> : SingletonObject where T : SingletonObject
+{
+	static T instance;
+
+	protected void Awake()
+	{
+		DestroySingleton();		
+		instance = (T)(object)this;
+	}
+
+
+	public static T Instance
+	{
+		get
+		{
+			InstantiateSingleton();
+			return instance;
+		}
+	}
+
+	public static void DestroySingleton()
+	{
+		if (instance)
+		{
+			instance.OnSngletonDestroyed();
+			Destroy(instance.gameObject);
+		}
+		instance = null;
+	}
+
+	public static void InstantiateSingleton()
+	{
+		if (!instance)
+		{
+			var obj = FindObjectOfType(typeof(T));
+
+			if (obj)
+			{
+				instance = (T)obj;
+				return;
+			}
+
+			var resourcePath = default(string);
+			var attributes = typeof(T).GetCustomAttributes(typeof(ResourceObjectAttribute), false);
+
+			// Try to load path from the ResourceObjectAttribute
+			if (attributes.Length > 0)
+				resourcePath = ((ResourceObjectAttribute)attributes[0]).Path;
+
+			// If empty, try to load by Name
+			if (string.IsNullOrEmpty(resourcePath))
+				resourcePath = typeof(T).Name;
+
+			var resourceObj = Resources.Load(resourcePath);
+			if (resourceObj)
+			{
+				obj = Instantiate(resourceObj);
+
+				if (obj)
+				{
+					instance = ((GameObject)obj).GetComponent<T>();
+					// Can attach DontDestroyOnLoad, if necessary
+				}
+				else
+				{
+					Debug.LogError(string.Format("Could not instantiate instance of {0}", typeof(T)));
+				}
+			}
+			else
+			{
+				Debug.LogError(string.Format("Could not load instance of {0}", typeof(T)));
+			}
+		};
+
+	}
+
+}
