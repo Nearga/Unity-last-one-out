@@ -6,6 +6,5 @@ namespace LastOneOut
 {
 	public static class Constants
 	{
-		public static string Namespace = "loo";
 	}
 }

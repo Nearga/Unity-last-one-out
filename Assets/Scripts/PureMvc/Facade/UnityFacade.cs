@@ -19,7 +19,7 @@ namespace LastOneOut
         {
             base.InitializeController();
 
-			var c = MainMenuController.Instance;
+			//var c = MainMenuController.Instance;
 
 			// Commands
 			RegisterCommand(Notifications.Initialize, typeof(InitializeCommand));
@@ -27,7 +27,7 @@ namespace LastOneOut
 
 			//RegisterCommand(Notifications.Navigate, typeof(NavigateCommand)); // TODO: move to MainMenuController
 		}
-				
+		
 
 		public void Initialize()
         {

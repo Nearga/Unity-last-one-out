@@ -8,14 +8,9 @@ namespace LastOneOut
 {
 	public abstract class BaseMediator : Mediator
 	{
-		protected GameObject viewComponent;
-
 		public BaseMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
-		public override void OnRegister()
-		{
-			SubscribeOnSource();
-		}
+		public BaseMediator(string mediatorName, GameObject viewComponent) : base(mediatorName, viewComponent) { }
 
 		public override IList<string> ListNotificationInterests()
 		{
@@ -55,22 +50,5 @@ namespace LastOneOut
 			//var view = viewGO.GetComponent<ViewComponent>(); 
 			viewGO.SetActive(false);
 		}
-
-		void SubscribeOnSource()
-		{
-			// Check that ViewComponent is a GameObject
-			var asGameObject = ViewComponent as GameObject;
-			if (asGameObject == null)
-				Debug.LogException(new NotSupportedException("ViewComponent is not an GameObject"));
-			
-			// If it contains MvcButton, just call DoAction, once clicked
-			var asButton = asGameObject.GetComponentInChildren<MvcButton>();
-			if (asButton != null)
-				asButton.SubscribeOnClick(OnButtonClickedAction);
-		}
-
-
-
-		public virtual void OnButtonClickedAction() { }
 	}
 }

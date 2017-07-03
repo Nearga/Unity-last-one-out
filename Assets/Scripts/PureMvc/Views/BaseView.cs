@@ -5,8 +5,27 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class BaseView<T> : SingletonObject<T> where T : SingletonObject
+	public abstract class BaseView<T> : SingletonObject<T> where T : SingletonObject
 	{
+		protected abstract Type GetMediatorType();
+		protected IMediator mediator;
+		protected IView view;
+
+		private void OnEnable()
+		{
+			view = View.Instance;
+
+			var type = GetMediatorType();
+			mediator = (IMediator)Activator.CreateInstance(type, type.ToString(), gameObject);
+			view.RegisterMediator(mediator);
+		}
+
+		private void OnDisable()
+		{
+			view.RemoveMediator(mediator.GetType().ToString());
+		}
+
+		/*
 		protected IView view;
 
 		void Start()
@@ -44,6 +63,7 @@ namespace LastOneOut
 					}					
 				}				
 			}
-		}		
+		}
+		*/
 	}
 }

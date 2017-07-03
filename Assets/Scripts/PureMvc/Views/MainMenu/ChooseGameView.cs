@@ -1,20 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace LastOneOut
 {
 	[ResourceObject("Prefabs/Views/ChooseGameView")]
 	public class ChooseGameView : BaseView<ChooseGameView>
 	{
-		[SerializeField]
-		MvcButton hotseatButton;
+		public Button HotseatButton;
 
-		[SerializeField]
-		MvcButton vsBotButton;
+		public Button VsBotButton;
 
-		[SerializeField]
-		MvcButton watchBotButton;
+		public Button WatchBotButton;
 
-		[SerializeField]
-		MvcButton backButton;
+		public Button BackButton;
+
+		override protected Type GetMediatorType()
+		{
+			return typeof(ChooseGameMediator);
+		}
 	}
 }
