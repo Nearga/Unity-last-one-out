@@ -11,7 +11,7 @@ namespace LastOneOut
             Debug.Log("InitializeCommand.Execute");
 
 			// Load StartGameView
-			var view = MainGameView.Instance;
+			var view = MainMenuView.Instance;
 		}
     }
 }

@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class ChooseGameMediator : BaseMediator
+	public class ChooseGameMenuMediator : BaseMediator
 	{
-		public ChooseGameMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
+		public ChooseGameMenuMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
-		private ChooseGameView chooseGameView;
+		private ChooseGameMenuView chooseGameView;
 
 		public override void OnRegister()
 		{
@@ -17,7 +17,7 @@ namespace LastOneOut
 				Debug.LogException(new Exception("ViewComponent is not a GameObject"));
 
 			// ... and StartGameView
-			chooseGameView = asGameObject.GetComponent<ChooseGameView>();
+			chooseGameView = asGameObject.GetComponent<ChooseGameMenuView>();
 			if (chooseGameView == null)
 				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
@@ -47,7 +47,7 @@ namespace LastOneOut
 		void OnBackClicked()
 		{
 			Debug.Log("OnBackClicked");
-			SendNotification(Notifications.Navigate, typeof(MainGameView));
+			SendNotification(Notifications.Navigate, typeof(MainMenuView));
 		}
 	}
 }

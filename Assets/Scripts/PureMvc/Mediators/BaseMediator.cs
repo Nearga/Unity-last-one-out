@@ -36,31 +36,37 @@ namespace LastOneOut
 			var ii = i.Invoke(null, null);
 			*/
 
-			// Load new View
-			if (type == typeof(MainGameView))
-			{
-				if (SceneManager.GetActiveScene().name != Constants.MainMenuScene)
-					SceneManager.LoadScene(Constants.MainMenuScene, LoadSceneMode.Single);
-
-				var newView = MainGameView.Instance;
-				newView.gameObject.SetActive(true);
-			}
-			if (type == typeof(ChooseGameView))
-			{
-				var newView = ChooseGameView.Instance;
-				newView.gameObject.SetActive(true);
-			}			
-			if (type == typeof(InGameView))
-			{
-				SceneManager.LoadScene(Constants.GameScene, LoadSceneMode.Single);
-				var newView = InGameView.Instance;
-				newView.gameObject.SetActive(true);
-			}
 
 			// Hide current View
 			var viewGO = ViewComponent as GameObject;
 			//var view = viewGO.GetComponent<ViewComponent>(); 
 			viewGO.SetActive(false);
+
+
+			// Load new View
+			if (type == typeof(MainMenuView))
+			{
+				if (SceneManager.GetActiveScene().name != Constants.MainMenuScene)
+					SceneManager.LoadScene(Constants.MainMenuScene, LoadSceneMode.Single);
+
+				var newView = MainMenuView.Instance;
+				newView.gameObject.SetActive(true);
+			}
+			if (type == typeof(ChooseGameMenuView))
+			{
+				if (SceneManager.GetActiveScene().name != Constants.MainMenuScene)
+					SceneManager.LoadScene(Constants.MainMenuScene, LoadSceneMode.Single);
+
+				var newView = ChooseGameMenuView.Instance;
+				newView.gameObject.SetActive(true);
+			}			
+			if (type == typeof(InGameView))
+			{
+				SceneManager.LoadScene(Constants.GameScene, LoadSceneMode.Single);
+
+				var newView = InGameView.Instance;
+				newView.gameObject.SetActive(true);
+			}
 		}
 	}
 }

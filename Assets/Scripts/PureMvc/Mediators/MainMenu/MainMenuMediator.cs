@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class StartGameMediator : BaseMediator
+	public class MeinMenuMediator : BaseMediator
 	{
-		public StartGameMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
+		public MeinMenuMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
-		private MainGameView startGameView;
+		private MainMenuView startGameView;
 
 		public override void OnRegister()
 		{
@@ -17,7 +17,7 @@ namespace LastOneOut
 				Debug.LogException(new Exception("ViewComponent is not a GameObject"));
 
 			// ... and StartGameView
-			startGameView = asGameObject.GetComponent<MainGameView>();
+			startGameView = asGameObject.GetComponent<MainMenuView>();
 			if (startGameView == null)
 				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
@@ -29,7 +29,7 @@ namespace LastOneOut
 		void OnStartClicked()
 		{
 			Debug.Log("OnStartClicked");
-			SendNotification(Notifications.Navigate, typeof(ChooseGameView));
+			SendNotification(Notifications.Navigate, typeof(ChooseGameMenuView));
 		}
 
 		void OnExitClicked()
