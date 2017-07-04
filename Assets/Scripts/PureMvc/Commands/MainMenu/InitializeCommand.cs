@@ -1,5 +1,4 @@
 ﻿using PureMVC.Interfaces;
-using PureMVC.Patterns;
 using UnityEngine;
 
 namespace LastOneOut
@@ -10,7 +9,7 @@ namespace LastOneOut
         {
             Debug.Log("InitializeCommand.Execute");
 
-			// Load StartGameView
+			// Load MainMenuView
 			var view = MainMenuView.Instance;
 		}
     }

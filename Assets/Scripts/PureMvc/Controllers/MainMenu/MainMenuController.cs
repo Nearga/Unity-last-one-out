@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace LastOneOut
+﻿namespace LastOneOut
 {
 	public class MainMenuController : BaseController
 	{

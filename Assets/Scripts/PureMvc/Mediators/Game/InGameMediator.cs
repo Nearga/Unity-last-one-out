@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace LastOneOut
@@ -25,6 +23,8 @@ namespace LastOneOut
 
 			// Add buttons listeners
 			inGameView.MainMenuButton.RemoveListenersAndSubscribe(OnMainMenuClicked);
+
+			
 		}
 		
 		void OnMainMenuClicked()

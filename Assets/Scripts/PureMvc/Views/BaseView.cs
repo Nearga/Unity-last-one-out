@@ -1,7 +1,6 @@
 ﻿using PureMVC.Core;
 using PureMVC.Interfaces;
 using System;
-using UnityEngine;
 
 namespace LastOneOut
 {

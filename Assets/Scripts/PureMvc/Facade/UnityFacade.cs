@@ -1,4 +1,5 @@
 ﻿using PureMVC.Patterns;
+using UnityEngine;
 
 namespace LastOneOut
 {
@@ -22,7 +23,7 @@ namespace LastOneOut
 			RegisterCommand(Notifications.Initialize, typeof(InitializeCommand));
 
 			// Proxies
-			RegisterProxy(new SettingsProxy("SettingsProxy"));
+			RegisterProxy(new SettingsProxy("SettingsProxy"));			
 		}
 		
 

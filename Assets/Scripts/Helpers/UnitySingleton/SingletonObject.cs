@@ -69,7 +69,6 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 				if (obj)
 				{
 					instance = ((GameObject)obj).GetComponent<T>();
-					// Can attach DontDestroyOnLoad, if necessary
 				}
 				else
 				{
@@ -78,8 +77,11 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 			}
 			else
 			{
-				Debug.LogError(string.Format("Could not load instance of {0}", typeof(T)));
+				//Debug.LogError(string.Format("Could not load instance of {0}", typeof(T)));
+				instance = new GameObject(typeof(T).Name, typeof(T)).GetComponentInChildren<T>();
 			}
+
+			DontDestroyOnLoad(instance);
 		};
 
 	}
