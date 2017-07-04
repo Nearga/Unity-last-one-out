@@ -2,11 +2,27 @@
 
 namespace LastOneOut
 {
-    public class Bootstrap : MonoBehaviour
-    {
-        void Awake()
+	public class Bootstrap : MonoBehaviour
+	{
+		public static Bootstrap Instance;
+
+		void Awake()
         {
-            UnityFacade.GetInstance().Initialize();
-        }
-    }
+			if (Instance)
+			{
+				gameObject.SetActive(false);
+				Destroy(gameObject);
+
+				return;
+			}
+			
+			Instance = this;
+			DontDestroyOnLoad(gameObject);
+		}
+
+		private void Start()
+		{
+			UnityFacade.GetInstance().Initialize();
+		}
+	}
 }

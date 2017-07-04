@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using UnityEngine;
 
 namespace LastOneOut
 {
@@ -15,12 +14,12 @@ namespace LastOneOut
 			// View should be GameObject...
 			var asGameObject = ViewComponent as GameObject; // StartGameView;
 			if (asGameObject == null)
-				Debug.LogException(new NotSupportedException("ViewComponent is not a GameObject"));
+				Debug.LogException(new Exception("ViewComponent is not a GameObject"));
 
 			// ... and StartGameView
 			chooseGameView = asGameObject.GetComponent<ChooseGameView>();
 			if (chooseGameView == null)
-				Debug.LogException(new NotSupportedException("ViewComponent is not a StartGameView"));
+				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
 			// Add buttons listeners
 			chooseGameView.HotseatButton.RemoveListenersAndSubscribe(OnHotseatClicked);
@@ -31,7 +30,8 @@ namespace LastOneOut
 
 		void OnHotseatClicked()
 		{
-
+			Debug.Log("OnHotseatClicked");
+			SendNotification(Notifications.Navigate, typeof(InGameView));
 		}
 
 		void OnVsBotClicked()
@@ -47,7 +47,7 @@ namespace LastOneOut
 		void OnBackClicked()
 		{
 			Debug.Log("OnBackClicked");
-			SendNotification(Notifications.Navigate, typeof(StartGameView));
+			SendNotification(Notifications.Navigate, typeof(MainGameView));
 		}
 	}
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using PureMVC.Patterns;
+﻿using PureMVC.Patterns;
 
 namespace LastOneOut
 {
@@ -18,14 +17,12 @@ namespace LastOneOut
         protected override void InitializeController()
         {
             base.InitializeController();
-
-			//var c = MainMenuController.Instance;
-
+			
 			// Commands
 			RegisterCommand(Notifications.Initialize, typeof(InitializeCommand));
 
-
-			//RegisterCommand(Notifications.Navigate, typeof(NavigateCommand)); // TODO: move to MainMenuController
+			// Proxies
+			RegisterProxy(new SettingsProxy("SettingsProxy"));
 		}
 		
 

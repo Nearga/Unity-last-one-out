@@ -1,10 +1,9 @@
 ﻿using System;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace LastOneOut
 {
-	[ResourceObject("Prefabs/Views/ChooseGameView")]
+	[ResourceObject("Prefabs/Views/MainMenu/ChooseGameView")]
 	public class ChooseGameView : BaseView<ChooseGameView>
 	{
 		public Button HotseatButton;
@@ -15,9 +14,7 @@ namespace LastOneOut
 
 		public Button BackButton;
 
-		override protected Type GetMediatorType()
-		{
-			return typeof(ChooseGameMediator);
-		}
+
+		override protected Type GetMediatorType() { return typeof(ChooseGameMediator); }
 	}
 }

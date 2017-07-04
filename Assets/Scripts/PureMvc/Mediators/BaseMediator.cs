@@ -3,14 +3,17 @@ using PureMVC.Patterns;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace LastOneOut
 {
+	// Handles Notifications.Navigate
 	public abstract class BaseMediator : Mediator
 	{
 		public BaseMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
 		public BaseMediator(string mediatorName, GameObject viewComponent) : base(mediatorName, viewComponent) { }
+
 
 		public override IList<string> ListNotificationInterests()
 		{
@@ -33,19 +36,28 @@ namespace LastOneOut
 			var ii = i.Invoke(null, null);
 			*/
 
-			// NOTE: temporary workaround
+			// Load new View
+			if (type == typeof(MainGameView))
+			{
+				if (SceneManager.GetActiveScene().name != Constants.MainMenuScene)
+					SceneManager.LoadScene(Constants.MainMenuScene, LoadSceneMode.Single);
+
+				var newView = MainGameView.Instance;
+				newView.gameObject.SetActive(true);
+			}
 			if (type == typeof(ChooseGameView))
 			{
 				var newView = ChooseGameView.Instance;
 				newView.gameObject.SetActive(true);
-			}
-			if (type == typeof(StartGameView))
+			}			
+			if (type == typeof(InGameView))
 			{
-				var newView = StartGameView.Instance;
+				SceneManager.LoadScene(Constants.GameScene, LoadSceneMode.Single);
+				var newView = InGameView.Instance;
 				newView.gameObject.SetActive(true);
 			}
 
-			// Hide current view
+			// Hide current View
 			var viewGO = ViewComponent as GameObject;
 			//var view = viewGO.GetComponent<ViewComponent>(); 
 			viewGO.SetActive(false);

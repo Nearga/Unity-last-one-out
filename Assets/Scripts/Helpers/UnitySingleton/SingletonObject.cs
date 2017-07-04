@@ -17,7 +17,6 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 		instance = (T)(object)this;
 	}
 
-
 	public static T Instance
 	{
 		get
@@ -26,6 +25,7 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 			return instance;
 		}
 	}
+
 
 	public static void DestroySingleton()
 	{
@@ -36,6 +36,7 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 		}
 		instance = null;
 	}
+
 
 	public static void InstantiateSingleton()
 	{

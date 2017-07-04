@@ -7,19 +7,19 @@ namespace LastOneOut
 	{
 		public StartGameMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
-		private StartGameView startGameView;
+		private MainGameView startGameView;
 
 		public override void OnRegister()
 		{
 			// View should be GameObject...
 			var asGameObject = ViewComponent as GameObject; // StartGameView;
 			if (asGameObject == null)
-				Debug.LogException(new NotSupportedException("ViewComponent is not a GameObject"));
+				Debug.LogException(new Exception("ViewComponent is not a GameObject"));
 
 			// ... and StartGameView
-			startGameView = asGameObject.GetComponent<StartGameView>();
+			startGameView = asGameObject.GetComponent<MainGameView>();
 			if (startGameView == null)
-				Debug.LogException(new NotSupportedException("ViewComponent is not a StartGameView"));
+				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
 			// Add buttons listeners
 			startGameView.StartButton.RemoveListenersAndSubscribe(OnStartClicked);
