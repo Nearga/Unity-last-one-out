@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class SingletonObject : MonoBehaviour {
 
@@ -83,7 +81,5 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 
 			DontDestroyOnLoad(instance);
 		};
-
 	}
-
 }

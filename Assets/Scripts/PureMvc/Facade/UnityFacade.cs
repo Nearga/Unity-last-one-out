@@ -1,5 +1,4 @@
 ﻿using PureMVC.Patterns;
-using UnityEngine;
 
 namespace LastOneOut
 {
