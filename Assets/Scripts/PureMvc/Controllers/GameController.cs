@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseController : Controller {
-
+namespace LastOneOut
+{ 
+	public class BaseController : Controller {
+		
+	}		
 }

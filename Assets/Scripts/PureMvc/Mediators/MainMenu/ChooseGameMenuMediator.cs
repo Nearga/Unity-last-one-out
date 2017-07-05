@@ -56,7 +56,7 @@ namespace LastOneOut
 		void BackClicked()
 		{
 			Debug.Log("BackClicked");
-			SendNotification(Notifications.NavigateTo, typeof(MainMenuView), null);
+			SendLoadViewNotification(typeof(MainMenuView));
 		}
 	}
 }

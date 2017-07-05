@@ -24,8 +24,10 @@ namespace LastOneOut
 			RegisterCommand(Notifications.NavigateTo, () => new NavigateToCommand());
 
 			// Proxies
-			RegisterProxy(new SettingsProxy());	
+			RegisterProxy(new GameSettingsProxy());
+			RegisterProxy(new GameStateProxy());
 		}
+		
 		
 
 		public void Initialize()

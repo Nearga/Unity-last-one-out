@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class SettingsProxy : Proxy
+	public class GameSettingsProxy : Proxy
 	{
-		public SettingsProxy() : base("SettingsProxy") { }
-		public SettingsProxy(string name) : base(name) { }
+		public GameSettingsProxy() : base("SettingsProxy") { }
+		public GameSettingsProxy(string name) : base(name) { }
 
-		public GameSettings GameSettings { get; private set; }
+		public GameSettingsModel GameSettings { get; private set; }
 
 		public override void OnRegister()
 		{
@@ -18,7 +18,7 @@ namespace LastOneOut
 			if (settings == null)
 				Debug.LogException(new Exception("GameSettings cant be loaded"));
 
-			GameSettings = settings as GameSettings;			
+			GameSettings = settings as GameSettingsModel;			
 		}
 	}
 }
