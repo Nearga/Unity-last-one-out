@@ -6,13 +6,14 @@ namespace LastOneOut
 {
 	public class SettingsProxy : Proxy
 	{
+		public SettingsProxy() : base("SettingsProxy") { }
 		public SettingsProxy(string name) : base(name) { }
 
 		public GameSettings GameSettings { get; private set; }
 
 		public override void OnRegister()
 		{
-			// Load the settings
+			// Load settings from the scriptable objects
 			var settings = Resources.Load("Settings/GameSettings", typeof(ScriptableObject));
 			if (settings == null)
 				Debug.LogException(new Exception("GameSettings cant be loaded"));

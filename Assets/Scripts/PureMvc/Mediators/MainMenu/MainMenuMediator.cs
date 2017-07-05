@@ -29,7 +29,7 @@ namespace LastOneOut
 		void OnStartClicked()
 		{
 			Debug.Log("OnStartClicked");
-			SendNotification(Notifications.Navigate, typeof(ChooseGameMenuView), null);
+			SendNotification(Notifications.NavigateTo, typeof(ChooseGameMenuView), null);
 		}
 
 		void OnExitClicked()

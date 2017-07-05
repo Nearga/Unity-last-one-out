@@ -1,5 +1,5 @@
-﻿using PureMVC.Interfaces;
-using PureMVC.Patterns;
+﻿using PureMVC.Core;
+using PureMVC.Interfaces;
 using PureMVC.Patterns.Mediator;
 using System;
 using System.Collections.Generic;
@@ -19,7 +19,15 @@ namespace LastOneOut
 
 		private Dictionary<GameType, Action> GameTypeToInitAction = new Dictionary<GameType, Action>
 		{
-			//{ GameType.PvP, () => { ((HumanInputController)HumanInputController.Instance).SetControllerPlayerType(new List<PlayerTurn> { PlayerTurn.FirstPlayer, PlayerTurn.SecondPlayer }); } }
+			{
+				GameType.PvP, () => 
+				{
+					var humanInputController = ((HumanInputController)(Controller.GetInstance(() => new HumanInputController())));
+					humanInputController.SetControllerPlayerType(new List<PlayerTurn> { PlayerTurn.FirstPlayer, PlayerTurn.SecondPlayer });
+					var aiInputController = ((AiInputController)(Controller.GetInstance(() => new AiInputController())));
+					aiInputController.SetControllerPlayerType(null);
+				}
+			}
 
 		};
 
@@ -27,24 +35,14 @@ namespace LastOneOut
 		public override string[] ListNotificationInterests()
 		{
 			var list = base.ListNotificationInterests().ToList();
-			list.Add(Notifications.Navigate);
+			list.Add(Notifications.NavigateTo);
 			return list.ToArray();
 		}
 
 		public override void HandleNotification(INotification notification)
 		{
 			var type = ((Type)notification.Body);
-
-			/*
-			// TODO: finish dynamic instatiation, based on type
-
-			//var mss = typeof(SingletonObject<>).GetMethods();
-
-			var m = typeof(SingletonObject<>).GetMethod("InstantiateSingleton");
-			MethodInfo i = m.MakeGenericMethod(type);
-			var ii = i.Invoke(null, null);
-			*/
-
+			
 
 			// Hide current View
 			var viewGO = ViewComponent as GameObject;
@@ -83,12 +81,13 @@ namespace LastOneOut
 
 		protected void SendStartGameNotification(GameType gameType)
 		{
-			SendNotification(Notifications.Navigate, typeof(InGameView), gameType.ToString());
+			SendNotification(Notifications.NavigateFrom);
+			SendNotification(Notifications.NavigateTo, typeof(InGameView), gameType.ToString());
 		}
 
 		void InitGameControllers(GameType gameType)
 		{
-			//HumanInputController.Instance.
+			GameTypeToInitAction[gameType].Invoke();
 		}
 
 
