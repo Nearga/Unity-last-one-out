@@ -5,7 +5,8 @@ namespace LastOneOut
 	public enum MaterialType
 	{
 		Normal,
-		Selected
+		Selected,
+		Forbidden
 	}
 
 	public class MaterialsAssetMap : AssetMap<MaterialType, Material>

@@ -14,7 +14,7 @@ namespace LastOneOut
 		public GameObject TableGameObject;
 
 		public GameObject ItemGameObject;
-
+				
 
 		private List<ItemControl> items;
 		private GameSettingsProxy gameSettingsProxy;
@@ -29,16 +29,36 @@ namespace LastOneOut
 
 		override protected Type GetMediatorType() { return typeof(InGameMediator); }
 
+
 		public void GenerateItems()
 		{
 			if (TableGameObject == null)
 				TableGameObject = GameObject.FindGameObjectWithTag("Table");
 
+			items.Clear();
+
 			for (int i = 0; i < gameSettingsProxy.GameSettings.TotalItems; i++)
 			{
-				var item = Factory.Instantiate<ItemControl>(ItemGameObject, TableGameObject.transform);
-				item.transform.position = CalculateItemPosition(i);
+				AddItem(i);
 			}
+		}
+
+		#region Item generation
+
+		private void AddItem(int itemId)
+		{
+			var item = Factory.Instantiate<ItemControl>(ItemGameObject, TableGameObject.transform);
+			item.Initialize(this, itemId);
+			item.transform.position = CalculateItemPosition(itemId);
+			item.PointerEnterItem += PointerEnterItem;
+			item.PointerExitItem += PointerExitItem;
+
+			items.Add(item);
+		}
+
+		private void RemoveItem(int itemId)
+		{
+
 		}
 
 		private Vector3 CalculateItemPosition(int itemId)
@@ -46,8 +66,8 @@ namespace LastOneOut
 			var totalItems = gameSettingsProxy.GameSettings.TotalItems;
 
 			var tablePos = TableGameObject.transform.position;
-			var leftmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.left * 0.45f;
-			var rightmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.right * 0.45f;
+			var leftmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.left * 0.40f + Vector3.back * 0.1f; // Some magic numbers. Bad, but fast.
+			var rightmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.right * 0.40f + Vector3.back * 0.1f;
 
 			// Lerp goes from 0 to 1, depending on item id (first id = 0, last id = 1) 
 			//float itemsLerp = 
@@ -60,6 +80,18 @@ namespace LastOneOut
 			var currentPos = Vector3.Lerp(leftmostItemPos, rightmostItemPos, itemsLerp);
 
 			return currentPos;
+		}
+
+		#endregion
+
+		private void PointerEnterItem(int id)
+		{
+
+		}
+
+		private void PointerExitItem(int id)
+		{
+
 		}
 	}
 }
