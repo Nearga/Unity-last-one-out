@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace LastOneOut
+﻿namespace LastOneOut
 {
 	public static class Constants
 	{
 		// Scene names
-		public static string GameScene = "Game";
+		public static string GameScene = "Scene_1";
 		public static string MainMenuScene = "MainMenu";
 	}
 }

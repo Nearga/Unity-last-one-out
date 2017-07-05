@@ -15,7 +15,7 @@ public class EditorTools {
 	static void DebigPlay()
 	{
 		EditorSceneManager.SaveOpenScenes();
-		EditorSceneManager.OpenScene("Assets/Scenes/Game.unity");
+		EditorSceneManager.OpenScene("Assets/Scenes/Scene_1.unity");
 		EditorApplication.isPlaying = true;
 	}
 }

@@ -68,8 +68,8 @@ namespace LastOneOut
 			var totalItems = gameSettingsProxy.GameSettings.TotalItems;
 
 			var tablePos = TableGameObject.transform.position;
-			var leftmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.left * 0.40f + Vector3.back * 0.1f; // Some magic numbers. Bad, but fast.
-			var rightmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.right * 0.40f + Vector3.back * 0.1f;
+			var leftmostItemPos = tablePos + Vector3.left * 0.2f + Vector3.up * 0.96f +  Vector3.forward * 0.7f; // Some magic numbers. Bad, but fast. In proper world, spawnpoints should be used.
+			var rightmostItemPos = tablePos + Vector3.left * 0.2f + Vector3.up * 0.96f - Vector3.forward * 0.7f;
 			
 			float itemsLerp = (float)itemId / (float)(totalItems - 1);
 			var currentPos = Vector3.Lerp(leftmostItemPos, rightmostItemPos, itemsLerp);
