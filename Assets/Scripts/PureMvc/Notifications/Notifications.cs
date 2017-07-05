@@ -5,8 +5,10 @@
 		// Init
 		public static string Initialize = "Initialize";
 
-		// Main menu
+		// Navigation
 		public static string Navigate = "Navigate";
 
+		// Game
+		public static string StartGame = "StartGame";
 	}
 }

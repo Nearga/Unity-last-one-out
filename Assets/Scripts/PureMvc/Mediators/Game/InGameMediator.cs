@@ -30,7 +30,7 @@ namespace LastOneOut
 		void OnMainMenuClicked()
 		{
 			Debug.Log("OnMainMenuClicked");
-			SendNotification(Notifications.Navigate, typeof(MainMenuView));
+			SendNotification(Notifications.Navigate, typeof(MainMenuView), null);
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace LastOneOut
 		public string EnumName;
 		public int EnumValue;
 		public UnityEngine.Object Object;
-		public UnityEngine.Color Color;
+		public Color Color;
 	}
 
 	public abstract class AssetMapBase : MonoBehaviour

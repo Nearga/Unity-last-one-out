@@ -22,32 +22,41 @@ namespace LastOneOut
 				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
 			// Add buttons listeners
-			chooseGameView.HotseatButton.RemoveListenersAndSubscribe(OnHotseatClicked);
-			chooseGameView.VsBotButton.RemoveListenersAndSubscribe(OnVsBotClicked);
-			chooseGameView.WatchBotButton.RemoveListenersAndSubscribe(OnWatchBotClicked);
-			chooseGameView.BackButton.RemoveListenersAndSubscribe(OnBackClicked);
+			chooseGameView.PlayerVsPlayerButton.RemoveListenersAndSubscribe(PvPClicked);
+			chooseGameView.PlayerVsBotButton.RemoveListenersAndSubscribe(PvEClicked);
+			chooseGameView.BotVsPlayerButton.RemoveListenersAndSubscribe(EvPClicked);
+			chooseGameView.ButVsBotButton.RemoveListenersAndSubscribe(EvEClicked);
+			chooseGameView.BackButton.RemoveListenersAndSubscribe(BackClicked);
 		}
 
-		void OnHotseatClicked()
+		void PvPClicked()
 		{
-			Debug.Log("OnHotseatClicked");
-			SendNotification(Notifications.Navigate, typeof(InGameView));
+			Debug.Log("PvPClicked");			
+			SendStartGameNotification(GameType.PvP);
 		}
 
-		void OnVsBotClicked()
+		void PvEClicked()
 		{
-
+			Debug.Log("PvEClicked");
+			SendStartGameNotification(GameType.PvE);
 		}
 
-		void OnWatchBotClicked()
+		void EvPClicked()
 		{
-
+			Debug.Log("EvPClicked");
+			SendStartGameNotification(GameType.EvP);
 		}
 
-		void OnBackClicked()
+		void EvEClicked()
 		{
-			Debug.Log("OnBackClicked");
-			SendNotification(Notifications.Navigate, typeof(MainMenuView));
+			Debug.Log("EvEClicked");
+			SendStartGameNotification(GameType.EvE);
+		}
+
+		void BackClicked()
+		{
+			Debug.Log("BackClicked");
+			SendNotification(Notifications.Navigate, typeof(MainMenuView), null);
 		}
 	}
 }

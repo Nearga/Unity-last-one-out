@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PureMVC.Core;
+using System;
 using UnityEngine.UI;
 
 namespace LastOneOut
@@ -6,13 +7,22 @@ namespace LastOneOut
 	[ResourceObject("Prefabs/Views/MainMenu/ChooseGameMenuView")]
 	public class ChooseGameMenuView : BaseView<ChooseGameMenuView>
 	{
-		public Button HotseatButton;
+		public Button PlayerVsPlayerButton;
 
-		public Button VsBotButton;
+		public Button PlayerVsBotButton;
 
-		public Button WatchBotButton;
+		public Button BotVsPlayerButton;
+
+		public Button ButVsBotButton;
 
 		public Button BackButton;
+
+
+		public override void OnEnable()
+		{
+			view = View.GetInstance(() => new View());
+			base.OnEnable();
+		}
 
 
 		override protected Type GetMediatorType() { return typeof(ChooseGameMenuMediator); }

@@ -1,4 +1,4 @@
-﻿using PureMVC.Patterns;
+﻿using PureMVC.Patterns.Facade;
 
 namespace LastOneOut
 {
@@ -6,12 +6,12 @@ namespace LastOneOut
     {
         static UnityFacade()
         {
-            m_instance = new UnityFacade();
+            instance = new UnityFacade();
         }
 
         public static UnityFacade GetInstance()
         {
-            return m_instance as UnityFacade;
+            return instance as UnityFacade;
         }
 
         protected override void InitializeController()
@@ -19,10 +19,10 @@ namespace LastOneOut
             base.InitializeController();
 			
 			// Commands
-			RegisterCommand(Notifications.Initialize, typeof(InitializeCommand));
+			RegisterCommand(Notifications.Initialize, () => new InitializeCommand());
 
 			// Proxies
-			RegisterProxy(new SettingsProxy("SettingsProxy"));			
+			RegisterProxy(new SettingsProxy("SettingsProxy"));	
 		}
 		
 

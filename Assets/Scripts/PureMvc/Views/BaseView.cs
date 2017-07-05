@@ -10,10 +10,8 @@ namespace LastOneOut
 		protected IMediator mediator;
 		protected IView view;
 
-		private void OnEnable()
+		virtual public void OnEnable()
 		{
-			view = View.Instance;
-
 			var type = GetMediatorType();
 			mediator = (IMediator)Activator.CreateInstance(type, type.ToString(), gameObject);
 			view.RegisterMediator(mediator);

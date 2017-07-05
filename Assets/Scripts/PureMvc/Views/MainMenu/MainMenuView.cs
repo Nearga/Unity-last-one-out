@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PureMVC.Core;
+using System;
 using UnityEngine.UI;
 
 namespace LastOneOut
@@ -10,6 +11,12 @@ namespace LastOneOut
 				
 		public Button ExitButton;
 
+
+		public override void OnEnable()
+		{
+			view = View.GetInstance(() => new View());
+			base.OnEnable();
+		}
 
 		override protected Type GetMediatorType() { return typeof(MeinMenuMediator); }
 	}

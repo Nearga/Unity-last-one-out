@@ -1,7 +1,9 @@
 ﻿using PureMVC.Interfaces;
 using PureMVC.Patterns;
+using PureMVC.Patterns.Mediator;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,11 +17,18 @@ namespace LastOneOut
 		public BaseMediator(string mediatorName, GameObject viewComponent) : base(mediatorName, viewComponent) { }
 
 
-		public override IList<string> ListNotificationInterests()
+		private Dictionary<GameType, Action> GameTypeToInitAction = new Dictionary<GameType, Action>
 		{
-			var list = base.ListNotificationInterests();
+			//{ GameType.PvP, () => { ((HumanInputController)HumanInputController.Instance).SetControllerPlayerType(new List<PlayerTurn> { PlayerTurn.FirstPlayer, PlayerTurn.SecondPlayer }); } }
+
+		};
+
+
+		public override string[] ListNotificationInterests()
+		{
+			var list = base.ListNotificationInterests().ToList();
 			list.Add(Notifications.Navigate);
-			return list;
+			return list.ToArray();
 		}
 
 		public override void HandleNotification(INotification notification)
@@ -59,14 +68,29 @@ namespace LastOneOut
 
 				var newView = ChooseGameMenuView.Instance;
 				newView.gameObject.SetActive(true);
-			}			
+			}
 			if (type == typeof(InGameView))
 			{
 				SceneManager.LoadScene(Constants.GameScene, LoadSceneMode.Single);
 
 				var newView = InGameView.Instance;
 				newView.gameObject.SetActive(true);
+
+				var gameType = (GameType)Enum.Parse(typeof(GameType), notification.Type);
+				InitGameControllers(gameType);
 			}
 		}
+
+		protected void SendStartGameNotification(GameType gameType)
+		{
+			SendNotification(Notifications.Navigate, typeof(InGameView), gameType.ToString());
+		}
+
+		void InitGameControllers(GameType gameType)
+		{
+			//HumanInputController.Instance.
+		}
+
+
 	}
 }
