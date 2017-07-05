@@ -26,6 +26,8 @@ namespace LastOneOut
 			startGameView.ExitButton.RemoveListenersAndSubscribe(OnExitClicked);
 		}
 
+		#region Events
+
 		void OnStartClicked()
 		{
 			Debug.Log("OnStartClicked");
@@ -37,5 +39,7 @@ namespace LastOneOut
 			Debug.Log("OnExitClicked");
 			Application.Quit();
 		}
+
+		#endregion
 	}
 }

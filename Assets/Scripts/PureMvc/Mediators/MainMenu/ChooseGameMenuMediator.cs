@@ -29,6 +29,8 @@ namespace LastOneOut
 			chooseGameView.BackButton.RemoveListenersAndSubscribe(BackClicked);
 		}
 
+		#region Events
+
 		void PvPClicked()
 		{
 			Debug.Log("PvPClicked");			
@@ -58,5 +60,7 @@ namespace LastOneOut
 			Debug.Log("BackClicked");
 			SendLoadViewNotification(typeof(MainMenuView));
 		}
+
+		#endregion
 	}
 }

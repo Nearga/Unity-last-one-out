@@ -81,18 +81,17 @@ namespace LastOneOut
 
 		private void PointerEnterItem(int id)
 		{
-			var item = items.Where(i => i.Id == id).FirstOrDefault();
-			item.SetMaterial(MaterialType.Selected);
+			view.NotifyObservers(new Notification(Notifications.PointerEnter, id));
 		}
 
 		private void PointerExitItem(int id)
 		{
-
+			view.NotifyObservers(new Notification(Notifications.PointerExit, id));
 		}
 
 		private void PointerClickItem(int id)
 		{
-
+			view.NotifyObservers(new Notification(Notifications.PointerClicked, id));
 		}
 	}
 }

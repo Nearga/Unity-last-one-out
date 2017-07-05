@@ -56,7 +56,6 @@ namespace LastOneOut
 				else
 					throw new Exception("Type not found : " + field.FieldType);
 			}
-
 		}
 
 		public T Find<T>()
