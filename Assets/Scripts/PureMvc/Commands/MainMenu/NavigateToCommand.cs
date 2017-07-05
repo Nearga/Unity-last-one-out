@@ -1,35 +1,17 @@
-﻿using PureMVC.Core;
-using PureMVC.Interfaces;
+﻿using PureMVC.Interfaces;
 using System;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 namespace LastOneOut
 {
 	public class NavigateToCommand : BaseCommand
 	{
-		private Dictionary<GameType, Action> GameTypeToInitAction = new Dictionary<GameType, Action>
-		{
-			{
-				GameType.PvP, () =>
-				{
-					//HumanInputController.GetInstance(() => new HumanInputController());
-
-					var humanInputController = ((HumanInputController)(HumanInputController.GetInstance(() => new HumanInputController())));
-					humanInputController.SetControllerPlayerType(new List<PlayerTurn> { PlayerTurn.FirstPlayer, PlayerTurn.SecondPlayer });
-					var aiInputController = ((AiInputController)(AiInputController.GetInstance(() => new AiInputController())));
-					aiInputController.SetControllerPlayerType(null);
-				}
-			}
-		};
-
 		public override void Execute(INotification notification)
 		{
 			//Debug.Log("NavigateToCommand.Execute");
-
 			var type = ((Type)notification.Body);
 
-			// Load new View
+			// Load new View. If necessary, load next scene as well. For the Game view, send notification about game start
 			if (type == typeof(MainMenuView))
 			{
 				if (SceneManager.GetActiveScene().name != Constants.MainMenuScene)
@@ -54,13 +36,11 @@ namespace LastOneOut
 				newView.gameObject.SetActive(true);
 
 				var gameType = (GameType)Enum.Parse(typeof(GameType), notification.Type);
-				InitGameControllers(gameType);
-			}
-		}
+				var stateProxy = UnityFacade.GetInstance().RetrieveProxy<GameStateProxy>();
+				stateProxy.StartNewGame(gameType);
 
-		void InitGameControllers(GameType gameType)
-		{
-			GameTypeToInitAction[gameType].Invoke();
+				Timer.Instance.Once(0.1f, () => SendNotification(Notifications.StartGame));	// A bit weird solution. There should be loading screen, SceneLoadedEvent, etc.
+			}
 		}
 	}
 }

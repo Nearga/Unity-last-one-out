@@ -6,7 +6,7 @@ namespace LastOneOut
 {
 	public class GameSettingsProxy : Proxy
 	{
-		public GameSettingsProxy() : base("SettingsProxy") { }
+		public GameSettingsProxy() : base("GameSettingsProxy") { }
 		public GameSettingsProxy(string name) : base(name) { }
 
 		public GameSettingsModel GameSettings { get; private set; }

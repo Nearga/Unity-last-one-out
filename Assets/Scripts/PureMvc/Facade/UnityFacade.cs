@@ -1,4 +1,5 @@
-﻿using PureMVC.Patterns.Facade;
+﻿using PureMVC.Core;
+using PureMVC.Patterns.Facade;
 
 namespace LastOneOut
 {
@@ -15,9 +16,10 @@ namespace LastOneOut
         }
 
         protected override void InitializeController()
-        {
-            base.InitializeController();
-			
+		{
+			// Init Controller
+			controller = Controller.GetInstance(() => new GameController());
+
 			// Commands
 			RegisterCommand(Notifications.Initialize, () => new InitializeCommand());
 

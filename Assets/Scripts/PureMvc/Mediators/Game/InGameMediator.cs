@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using PureMVC.Interfaces;
 using UnityEngine;
 
 namespace LastOneOut
@@ -8,6 +10,13 @@ namespace LastOneOut
 		public InGameMediator(string mediatorName, object viewComponent) : base(mediatorName, viewComponent) { }
 
 		private InGameView inGameView;
+
+		public override string[] ListNotificationInterests()
+		{
+			var list = base.ListNotificationInterests().ToList();
+			list.Add(Notifications.StartGame);
+			return list.ToArray();
+		}
 
 		public override void OnRegister()
 		{
@@ -22,9 +31,7 @@ namespace LastOneOut
 				Debug.LogException(new Exception("ViewComponent is not a StartGameView"));
 
 			// Add buttons listeners
-			inGameView.MainMenuButton.RemoveListenersAndSubscribe(OnMainMenuClicked);
-
-			
+			inGameView.MainMenuButton.RemoveListenersAndSubscribe(OnMainMenuClicked);			
 		}
 		
 		void OnMainMenuClicked()
@@ -32,5 +39,15 @@ namespace LastOneOut
 			Debug.Log("OnMainMenuClicked");
 			SendNotification(Notifications.NavigateTo, typeof(MainMenuView), null);
 		}
+
+
+		public override void HandleNotification(INotification notification)
+		{
+			Debug.Log("Handling " + notification.Name);
+
+			inGameView.GenerateItems();
+		}
+
+
 	}
 }

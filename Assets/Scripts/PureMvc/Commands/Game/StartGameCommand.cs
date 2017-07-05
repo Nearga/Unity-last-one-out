@@ -1,8 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using PureMVC.Interfaces;
 using UnityEngine;
 
 public class StartGameCommand : BaseCommand
 {
-	
+	public override void Execute(INotification notification)
+	{
+		base.Execute(notification);
+		Debug.Log("StartGameCommand");
+	}
 }

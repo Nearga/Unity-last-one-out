@@ -1,11 +1,14 @@
 ﻿using PureMVC.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace LastOneOut
 { 
-	public class BaseController : Controller {
-		
+	public class GameController : Controller {
+
+		protected override void InitializeController()
+		{
+			base.InitializeController();
+
+			RegisterCommand(Notifications.StartGame, () => new StartGameCommand());
+		}
 	}		
 }
