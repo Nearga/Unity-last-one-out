@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class StartGameCommand : BaseCommand
+	public class ProcessPointerExitCommand : BaseCommand
 	{
 		public override void Execute(INotification notification)
 		{
 			base.Execute(notification);
-			Debug.Log("StartGameCommand");
+			Debug.Log("ProcessPointerExitCommand");
 		}
 	}
 }

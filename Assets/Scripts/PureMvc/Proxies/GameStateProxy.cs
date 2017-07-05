@@ -1,4 +1,6 @@
 ﻿using PureMVC.Patterns.Proxy;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LastOneOut
 {
@@ -25,8 +27,21 @@ namespace LastOneOut
 
 		public void StartNewGame(GameType gameType = GameType.PvE)
 		{
+			var gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
+
 			GameStateModel.CurrentTurnNumber = 0;
-			GameStateModel.GameType = gameType; // Default if PvE
+			GameStateModel.GameType = gameType; // Default is PvE
+
+			GameStateModel.ItemStatuses = new List<ItemStatus>(gameSettingsProxy.GameSettings.TotalItems);
+			for (int i = 0; i < gameSettingsProxy.GameSettings.TotalItems; i++)
+			{
+				ItemStatus status = new ItemStatus()
+				{
+					Id = i,
+					ItemState = ItemState.OnBoard
+				};
+				GameStateModel.ItemStatuses.Add(status);
+			}			
 		}
 	}
 }

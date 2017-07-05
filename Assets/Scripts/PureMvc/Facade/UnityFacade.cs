@@ -19,15 +19,16 @@ namespace LastOneOut
 		{
 			// Init Controller
 			controller = Controller.GetInstance(() => new GameController());
+			
+			// Proxies
+			RegisterProxy(new GameSettingsProxy());
+			RegisterProxy(new GameStateProxy());
+			
 
 			// Commands
 			RegisterCommand(Notifications.Initialize, () => new InitializeCommand());
 
 			RegisterCommand(Notifications.NavigateTo, () => new NavigateToCommand());
-
-			// Proxies
-			RegisterProxy(new GameSettingsProxy());
-			RegisterProxy(new GameStateProxy());
 		}
 		
 		

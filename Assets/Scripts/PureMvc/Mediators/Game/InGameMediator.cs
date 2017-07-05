@@ -40,7 +40,8 @@ namespace LastOneOut
 		void OnMainMenuClicked()
 		{
 			Debug.Log("OnMainMenuClicked");
-			SendNotification(Notifications.NavigateTo, typeof(MainMenuView), null);
+			//SendNotification(Notifications.NavigateTo, typeof(MainMenuView), null);
+			SendLoadViewNotification(typeof(MainMenuView));
 		}
 
 		#endregion
@@ -49,21 +50,12 @@ namespace LastOneOut
 
 		public override void HandleNotification(INotification notification)
 		{
-			Debug.Log("Handling " + notification.Name);
+			//Debug.Log("Handling " + notification.Name);
 
 			switch (notification.Name)
 			{
 				case Notifications.StartGame:
 						HandleStartGameNotification();
-					break;
-				case Notifications.PointerEnter:
-						HandlePointerClickedNotification((int)notification.Body); // TODO: add safety checks
-					break;
-				case Notifications.PointerExit:
-						HandlePointerClickedNotification((int)notification.Body);
-					break;
-				case Notifications.PointerClicked:
-						HandlePointerClickedNotification((int)notification.Body);
 					break;
 				default:
 					break;
@@ -75,21 +67,7 @@ namespace LastOneOut
 		{
 			inGameView.GenerateItems();
 		}
-
-		private void HandlePointerClickedNotification(int clickedItemId)
-		{
-			Debug.Log(clickedItemId);
-		}
-
-		private void HandlePointerEnterNotification(int clickedItemId)
-		{
-			Debug.Log(clickedItemId);
-		}
-
-		private void HandlePointerExitNotification(int clickedItemId)
-		{
-			Debug.Log(clickedItemId);
-		}
+		
 
 		#endregion
 	}

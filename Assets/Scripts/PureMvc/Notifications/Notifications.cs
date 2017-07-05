@@ -17,7 +17,6 @@
 		public const string PointerExit = "PointerExit";
 		public const string PointerClicked = "PointerClicked";
 
-		public const string SetItemsMaterials = "SetItemsMaterials";
-		public const string RemoveItems = "RemoveItems";
+		public const string SetItemState = "SetItemState";
 	}
 }

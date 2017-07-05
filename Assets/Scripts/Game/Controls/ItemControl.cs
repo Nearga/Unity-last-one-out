@@ -32,21 +32,21 @@ public class ItemControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		Debug.Log("Pointer Enter " + Id);
+		//Debug.Log("Pointer Enter " + Id);
 
 		PointerEnterItem.Invoke(Id);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		Debug.Log("Pointer Exit " + Id);
+		//Debug.Log("Pointer Exit " + Id);
 
 		PointerExitItem.Invoke(Id);
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		Debug.Log("Pointer Click " + Id);
+		//Debug.Log("Pointer Click " + Id);
 
 		PointerClickItem.Invoke(Id);
 	}
