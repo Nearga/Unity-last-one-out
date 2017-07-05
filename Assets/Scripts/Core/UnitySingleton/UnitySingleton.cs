@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-public abstract class SingletonObject : MonoBehaviour {
+public abstract class UnitySingleton : MonoBehaviour {
 
 	public virtual void OnSngletonDestroyed() { }
 }
 
-public abstract class SingletonObject<T> : SingletonObject where T : SingletonObject
+public abstract class UnitySingleton<T> : UnitySingleton where T : UnitySingleton
 {
 	static T instance;
 
@@ -49,11 +49,11 @@ public abstract class SingletonObject<T> : SingletonObject where T : SingletonOb
 			}
 
 			var resourcePath = default(string);
-			var attributes = typeof(T).GetCustomAttributes(typeof(ResourceObjectAttribute), false);
+			var attributes = typeof(T).GetCustomAttributes(typeof(UnitySingletonAttribute), false);
 
 			// Try to load path from the ResourceObjectAttribute
 			if (attributes.Length > 0)
-				resourcePath = ((ResourceObjectAttribute)attributes[0]).Path;
+				resourcePath = ((UnitySingletonAttribute)attributes[0]).Path;
 
 			// If empty, try to load by Name
 			if (string.IsNullOrEmpty(resourcePath))

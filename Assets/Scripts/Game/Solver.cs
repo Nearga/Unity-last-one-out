@@ -5,8 +5,8 @@
 	{
 		public static int AmountOfItemsToTake()
 		{
-			var gameStateProxy = UnityFacade.GetInstance().RetrieveProxy(typeof(GameStateProxy));
-			var gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy(typeof(GameSettingsProxy));
+			var gameStateProxy = UnityFacade.GetInstance().RetrieveProxy<GameStateProxy>();
+			var gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
 
 
 			return 1;

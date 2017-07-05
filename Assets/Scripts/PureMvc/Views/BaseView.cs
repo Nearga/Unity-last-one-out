@@ -4,7 +4,7 @@ using System;
 
 namespace LastOneOut
 {
-	public abstract class BaseView<T> : SingletonObject<T> where T : SingletonObject
+	public abstract class BaseView<T> : UnitySingleton<T> where T : UnitySingleton
 	{
 		protected abstract Type GetMediatorType();
 		protected IMediator mediator;

@@ -1,12 +1,13 @@
 ﻿using PureMVC.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace LastOneOut
 {
-	[ResourceObject("Prefabs/Views/Game/InGameView")]
+	[UnitySingleton("Prefabs/Views/Game/InGameView")]
 	public class InGameView : BaseView<InGameView>
 	{
 		public Button MainMenuButton;
@@ -14,9 +15,9 @@ namespace LastOneOut
 		public GameObject TableGameObject;
 
 		public GameObject ItemGameObject;
-				
 
-		private List<ItemControl> items;
+
+		private List<ItemControl> items = new List<ItemControl>();
 		private GameSettingsProxy gameSettingsProxy;
 
 		public override void OnEnable()
@@ -52,6 +53,7 @@ namespace LastOneOut
 			item.transform.position = CalculateItemPosition(itemId);
 			item.PointerEnterItem += PointerEnterItem;
 			item.PointerExitItem += PointerExitItem;
+			item.PointerClickItem += PointerClickItem;
 
 			items.Add(item);
 		}
@@ -68,15 +70,8 @@ namespace LastOneOut
 			var tablePos = TableGameObject.transform.position;
 			var leftmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.left * 0.40f + Vector3.back * 0.1f; // Some magic numbers. Bad, but fast.
 			var rightmostItemPos = tablePos + Vector3.up * 0.55f + Vector3.right * 0.40f + Vector3.back * 0.1f;
-
-			// Lerp goes from 0 to 1, depending on item id (first id = 0, last id = 1) 
-			//float itemsLerp = 
-			//	(itemId == 0) ? 0 :
-			//	(itemId == totalItems) ? 1 :
-			//	itemId / totalItems;
-
+			
 			float itemsLerp = (float)itemId / (float)(totalItems - 1);
-
 			var currentPos = Vector3.Lerp(leftmostItemPos, rightmostItemPos, itemsLerp);
 
 			return currentPos;
@@ -86,10 +81,16 @@ namespace LastOneOut
 
 		private void PointerEnterItem(int id)
 		{
-
+			var item = items.Where(i => i.Id == id).FirstOrDefault();
+			item.SetMaterial(MaterialType.Selected);
 		}
 
 		private void PointerExitItem(int id)
+		{
+
+		}
+
+		private void PointerClickItem(int id)
 		{
 
 		}

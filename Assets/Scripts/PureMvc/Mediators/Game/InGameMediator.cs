@@ -20,7 +20,7 @@ namespace LastOneOut
 
 		public override void OnRegister()
 		{
-			// View should be GameObject...
+			// View should be GameObject ...
 			var asGameObject = ViewComponent as GameObject; // StartGameView;
 			if (asGameObject == null)
 				Debug.LogException(new Exception("ViewComponent is not a GameObject"));

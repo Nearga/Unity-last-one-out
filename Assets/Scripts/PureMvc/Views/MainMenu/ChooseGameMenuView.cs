@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace LastOneOut
 {
-	[ResourceObject("Prefabs/Views/MainMenu/ChooseGameMenuView")]
+	[UnitySingleton("Prefabs/Views/MainMenu/ChooseGameMenuView")]
 	public class ChooseGameMenuView : BaseView<ChooseGameMenuView>
 	{
 		public Button PlayerVsPlayerButton;

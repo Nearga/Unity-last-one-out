@@ -9,7 +9,7 @@ namespace LastOneOut
 		{
 			try
 			{
-				var newInstance = (GameObject)GameObject.Instantiate(prefab);
+				var newInstance = GameObject.Instantiate(prefab);
 				newInstance.name = prefab.name;
 
 				if (parent != null)

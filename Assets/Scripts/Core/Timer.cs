@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class Timer : SingletonObject<Timer>
+	public class Timer : UnitySingleton<Timer>
 	{
 		public void Once(float delay, Action action)
 		{
