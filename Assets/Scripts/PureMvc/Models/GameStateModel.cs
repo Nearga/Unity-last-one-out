@@ -10,7 +10,7 @@ namespace LastOneOut
 		OffBoard
 	}
 
-	public class ItemStatus
+	public class ItemModel
 	{
 		public int Id { get; set; }
 		public ItemState ItemState { get; set; }
@@ -20,6 +20,6 @@ namespace LastOneOut
 	{
 		public GameType GameType { get; set; }
 		public int CurrentRoundNumber { get; set; }
-		public List<ItemStatus> ItemStatuses { get; set; }
+		public List<ItemModel> ItemModels { get; set; }
 	}
 }

@@ -48,7 +48,7 @@ namespace LastOneOut
 
 		public void SyncItems()
 		{
-			foreach (var item in gameStateProxy.ItemStatuses)
+			foreach (var item in gameStateProxy.ItemModelsList)
 			{
 				var existingItem = items.FirstOrDefault(i => i.Id == item.Id);
 				if (existingItem != null)

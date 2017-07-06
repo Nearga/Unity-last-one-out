@@ -1,5 +1,4 @@
 ﻿using PureMVC.Interfaces;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -19,14 +18,13 @@ namespace LastOneOut
 
 			//Debug.Log("ProcessPointerEnterCommand");
 
-
 			// It its first player, order by default. If its a second player, order by descending.
-			var currentItems = gameStateProxy.IsFirstPlayerRound() 
-				? gameStateProxy.ItemStatuses.OrderBy(i => i.Id) 
-				: gameStateProxy.ItemStatuses.OrderByDescending(i => i.Id);
+			var currentItems = gameStateProxy.IsFirstPlayerRound()
+				? gameStateProxy.ItemModelsList.OrderByDescending(i => i.Id)
+				: gameStateProxy.ItemModelsList.OrderBy(i => i.Id);
 
 			var selectedItemId = (int)notification.Body;
-			ItemStatus firstSelectableItem = null; // Start of the selection zone
+			ItemModel firstSelectableItem = null; // Start of the selection zone
 
 			foreach (var item in currentItems)
 			{
@@ -40,8 +38,8 @@ namespace LastOneOut
 
 				// If outside of selection zone, skip it (state should be OnBoard)
 				bool isItemInSelectionZone = gameStateProxy.IsFirstPlayerRound()
-					? item.Id <= selectedItemId
-					: item.Id >= selectedItemId;
+					? item.Id >= selectedItemId
+					: item.Id <= selectedItemId;
 
 				if (!isItemInSelectionZone)
 				{
@@ -49,14 +47,18 @@ namespace LastOneOut
 					continue;
 				}
 
-				bool isItemSelectable = item.Id < firstSelectableItem.Id + gameSettingsProxy.GameSettings.TakePerTurn; // Selectable, if id is less then start of selection zone + takePerTurn
+				// Selectable, if id is less then start of selection zone + takePerTurn. Also, depends on the player turn.
+				bool isItemSelectable = gameStateProxy.IsFirstPlayerRound() 
+					? (item.Id > firstSelectableItem.Id - gameSettingsProxy.GameSettings.TakePerTurn)
+					: (item.Id < firstSelectableItem.Id + gameSettingsProxy.GameSettings.TakePerTurn);
+				
 				if (isItemSelectable)
 					item.ItemState = ItemState.SelectedPickable;
 				else
 					item.ItemState = ItemState.SelectedUnpickable;
 			}
 
-			gameStateProxy.ItemStatuses = currentItems; // Save the state			
+			gameStateProxy.ItemModelsList = currentItems; // Save the state			
 		}
 	}
 }

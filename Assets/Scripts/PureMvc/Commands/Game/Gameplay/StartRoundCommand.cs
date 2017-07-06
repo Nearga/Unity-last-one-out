@@ -8,7 +8,10 @@ namespace LastOneOut
 		public override void Execute(INotification notification)
 		{
 			base.Execute(notification);
-			Debug.Log("StartRoundCommand");
+
+			gameStateProxy.StartNewRound();
+
+			Debug.Log("StartRoundCommand " + gameStateProxy.CurrentRoundNumber);
 			
 			if (gameStateProxy.IsAiRound())
 				SendNotification(Notifications.AiInput);

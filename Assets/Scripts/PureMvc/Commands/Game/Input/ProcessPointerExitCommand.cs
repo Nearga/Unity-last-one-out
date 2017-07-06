@@ -16,6 +16,22 @@ namespace LastOneOut
 			}
 
 			//Debug.Log("ProcessPointerExitCommand");
+
+			var currentItems = gameStateProxy.ItemModelsList;
+
+			foreach (var item in currentItems)
+			{
+				// Skip OffBoard items
+				if (item.ItemState == ItemState.OffBoard)
+					continue;
+
+				// Set all items as OnBoard
+				item.ItemState = ItemState.OnBoard;
+			}
+
+			// TODO: add some fading - they disappears too fast
+
+			gameStateProxy.ItemModelsList = currentItems; // Save state
 		}
 	}
 }

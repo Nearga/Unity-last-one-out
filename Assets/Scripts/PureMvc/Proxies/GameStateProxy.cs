@@ -52,15 +52,15 @@ namespace LastOneOut
 
 		#endregion
 
-		public IEnumerable<ItemStatus> ItemStatuses
+		public IEnumerable<ItemModel> ItemModelsList
 		{
 			get
 			{
-				return GameStateModel.ItemStatuses;
+				return GameStateModel.ItemModels;
 			}
 			set
 			{
-				foreach (var item in GameStateModel.ItemStatuses)
+				foreach (var item in GameStateModel.ItemModels)
 				{
 					var updatedItem = value.FirstOrDefault(i => i.Id == item.Id);
 					if (updatedItem != null)
@@ -71,6 +71,12 @@ namespace LastOneOut
 			}
 		}
 
+		public int CurrentRoundNumber
+		{
+			get { return GameStateModel.CurrentRoundNumber; }
+			private set { GameStateModel.CurrentRoundNumber = value; }
+		}
+
 		public void StartNewGame(GameType gameType = GameType.PvE)
 		{
 			var gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
@@ -79,15 +85,15 @@ namespace LastOneOut
 			GameStateModel.GameType = gameType; // Default is PvE
 
 			// Init the items states and ids
-			GameStateModel.ItemStatuses = new List<ItemStatus>(gameSettingsProxy.GameSettings.TotalItems);
+			GameStateModel.ItemModels = new List<ItemModel>(gameSettingsProxy.GameSettings.TotalItems);
 			for (int i = 0; i < gameSettingsProxy.GameSettings.TotalItems; i++)
 			{
-				ItemStatus status = new ItemStatus()
+				ItemModel status = new ItemModel()
 				{
 					Id = i,
 					ItemState = ItemState.OnBoard
 				};
-				GameStateModel.ItemStatuses.Add(status);
+				GameStateModel.ItemModels.Add(status);
 			}
 		}
 		
