@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace LastOneOut
 {
-	public class AiInputCommand : BaseCommand
+	public class AiDecisionCommand : BaseCommand
 	{
 		public override void Execute(INotification notification)
 		{

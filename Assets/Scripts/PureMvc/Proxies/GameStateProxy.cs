@@ -94,16 +94,33 @@ namespace LastOneOut
 		public void StartNewRound()
 		{
 			GameStateModel.CurrentRoundNumber++;
-		}			
+		}
 
-		// Returns true, if AI should make a move. False, if its players move.
+		/// <summary>
+		/// Defines, which player's turn it is.
+		/// </summary>
+		/// <returns>True if its first player turn. False if its second player turn</returns>
+		public bool IsFirstPlayerRound()
+		{
+			return RoundOddness() == RoundModulo.Even ? true : false;
+		}
+		
+		/// <summary>
+		/// Defines, is game is listening to player or AI in the current round.
+		/// </summary>
+		/// <returns>True, if AI should make a move. False, if player should move.</returns>
 		public bool IsAiRound()
+		{			
+			var isAiRound = roundIsAiInput[new Tuple<GameType, RoundModulo>(GameStateModel.GameType, RoundOddness())];
+
+			//Debug.LogFormat("This is {0} round. It is {1} (even/odd). Due to {2} game type, IsAiRound is {3}", GameStateModel.CurrentRoundNumber, roundModulo, GameStateModel.GameType, isAiRound);
+			return isAiRound;
+		}
+
+		private RoundModulo RoundOddness()
 		{
 			var roundModulo = (GameStateModel.CurrentRoundNumber % 2 == 0) ? RoundModulo.Even : RoundModulo.Odd;
-			var isAiRound = roundIsAiInput[new Tuple<GameType, RoundModulo>(GameStateModel.GameType, roundModulo)];
-
-			Debug.LogFormat("This is {0} round. It is {1} (even/odd). Due to {2} game type, IsAiRound is {3}", GameStateModel.CurrentRoundNumber, roundModulo, GameStateModel.GameType, isAiRound);
-			return isAiRound;
+			return roundModulo;
 		}
 	}
 }

@@ -15,7 +15,7 @@ namespace LastOneOut
 				return;
 			}
 
-			Debug.Log("ProcessPointerExitCommand");
+			//Debug.Log("ProcessPointerExitCommand");
 		}
 	}
 }

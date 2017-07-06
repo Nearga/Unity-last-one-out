@@ -11,7 +11,7 @@ namespace LastOneOut
 			RegisterCommand(Notifications.StartGame, () => new StartGameCommand());
 			RegisterCommand(Notifications.StartRound, () => new StartRoundCommand());
 
-			RegisterCommand(Notifications.AiInput, () => new AiInputCommand());
+			RegisterCommand(Notifications.AiInput, () => new AiDecisionCommand());
 			RegisterCommand(Notifications.PointerEnter, () => new ProcessPointerEnterCommand());
 			RegisterCommand(Notifications.PointerExit, () => new ProcessPointerExitCommand());
 			RegisterCommand(Notifications.PointerClicked, () => new ProcessPointerClickedCommand());

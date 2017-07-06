@@ -1,5 +1,6 @@
 ﻿using PureMVC.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace LastOneOut
@@ -16,15 +17,46 @@ namespace LastOneOut
 				return;
 			}
 
-			Debug.Log("ProcessPointerEnterCommand");
+			//Debug.Log("ProcessPointerEnterCommand");
 
-			gameStateProxy.ItemStatuses = new List<ItemStatus>
+
+			// It its first player, order by default. If its a second player, order by descending.
+			var currentItems = gameStateProxy.IsFirstPlayerRound() 
+				? gameStateProxy.ItemStatuses.OrderBy(i => i.Id) 
+				: gameStateProxy.ItemStatuses.OrderByDescending(i => i.Id);
+
+			var selectedItemId = (int)notification.Body;
+			ItemStatus firstSelectableItem = null; // Start of the selection zone
+
+			foreach (var item in currentItems)
 			{
-				new ItemStatus { Id = 0, ItemState = ItemState.OffBoard },
-				new ItemStatus { Id = 1, ItemState = ItemState.OnBoard },
-				new ItemStatus { Id = 2, ItemState = ItemState.SelectedPickable },
-				new ItemStatus { Id = 3, ItemState = ItemState.SelectedUnpickable },
-			};
+				// Skip OffBoard items
+				if (item.ItemState == ItemState.OffBoard)
+					continue;
+
+				// Mark start of the selection zone
+				if (firstSelectableItem == null)
+					firstSelectableItem = item;
+
+				// If outside of selection zone, skip it (state should be OnBoard)
+				bool isItemInSelectionZone = gameStateProxy.IsFirstPlayerRound()
+					? item.Id <= selectedItemId
+					: item.Id >= selectedItemId;
+
+				if (!isItemInSelectionZone)
+				{
+					item.ItemState = ItemState.OnBoard;
+					continue;
+				}
+
+				bool isItemSelectable = item.Id < firstSelectableItem.Id + gameSettingsProxy.GameSettings.TakePerTurn; // Selectable, if id is less then start of selection zone + takePerTurn
+				if (isItemSelectable)
+					item.ItemState = ItemState.SelectedPickable;
+				else
+					item.ItemState = ItemState.SelectedUnpickable;
+			}
+
+			gameStateProxy.ItemStatuses = currentItems; // Save the state			
 		}
 	}
 }
