@@ -10,7 +10,7 @@ namespace LastOneOut
 		OffBoard
 	}
 
-	public struct ItemStatus
+	public class ItemStatus
 	{
 		public int Id { get; set; }
 		public ItemState ItemState { get; set; }

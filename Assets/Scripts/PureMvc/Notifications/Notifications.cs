@@ -18,6 +18,8 @@
 		public const string PointerExit = "PointerExit";
 		public const string PointerClicked = "PointerClicked";
 
+		public const string AiInput = "AiInput";
+
 		public const string SyncItemsState = "SyncItemsState"; // When GameStateProxy contains solved state and InGameView should be updated 
 	}
 }

@@ -15,7 +15,7 @@ namespace LastOneOut
 		public override string[] ListNotificationInterests()
 		{
 			var list = base.ListNotificationInterests().ToList();
-			list.AddRange(new List<string> { Notifications.StartGame, Notifications.PointerClicked, Notifications.PointerEnter, Notifications.PointerExit  });
+			list.AddRange(new List<string> { Notifications.StartGame, Notifications.SyncItemsState, Notifications.PointerClicked, Notifications.PointerEnter, Notifications.PointerExit  });
 			return list.ToArray();
 		}
 
@@ -55,7 +55,10 @@ namespace LastOneOut
 			switch (notification.Name)
 			{
 				case Notifications.StartGame:
-						HandleStartGameNotification();
+					HandleStartGameNotification();
+					break;
+				case Notifications.SyncItemsState:
+					HandleSyncItemsState();
 					break;
 				default:
 					break;
@@ -69,6 +72,10 @@ namespace LastOneOut
 			SendNotification(Notifications.StartRound);
 		}
 		
+		private void HandleSyncItemsState()
+		{
+			inGameView.SyncItems();
+		}
 
 		#endregion
 	}

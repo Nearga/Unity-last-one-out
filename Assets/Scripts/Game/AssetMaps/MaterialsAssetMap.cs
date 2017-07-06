@@ -6,7 +6,8 @@ namespace LastOneOut
 	{
 		Normal,
 		Selected,
-		Forbidden
+		Forbidden,
+		Hidden
 	}
 
 	public class MaterialsAssetMap : AssetMap<MaterialType, Material>

@@ -19,22 +19,23 @@ namespace LastOneOut
 		Odd
 	}
 
+	// No logic here. Only init and accessors.
 	public class GameStateProxy : Proxy
 	{
 		public GameStateProxy() : base("GameStateProxy") { }
 		public GameStateProxy(string name) : base(name) { }
 
-		public GameStateModel GameStateModel { get; private set; }
+		protected GameStateModel GameStateModel { get; private set; }
 
 		public override void OnRegister()
 		{
 			GameStateModel = new GameStateModel();
 		}
 
-		#region Is AI round config
+		#region Is AI round
 
 		// Key: Tuple that contains game type and is round even. Value: True if AI input is expected, False if user input is expected.
-		private Dictionary<Tuple<GameType, RoundModulo>, bool> turnIsAiInput = new Dictionary<Tuple<GameType, RoundModulo>, bool>
+		private Dictionary<Tuple<GameType, RoundModulo>, bool> roundIsAiInput = new Dictionary<Tuple<GameType, RoundModulo>, bool>
 		{
 			{ Tuple.New(GameType.PvP, RoundModulo.Even), false },
 			{ Tuple.New(GameType.PvP, RoundModulo.Odd), false },
@@ -50,6 +51,25 @@ namespace LastOneOut
 		};
 
 		#endregion
+
+		public IEnumerable<ItemStatus> ItemStatuses
+		{
+			get
+			{
+				return GameStateModel.ItemStatuses;
+			}
+			set
+			{
+				foreach (var item in GameStateModel.ItemStatuses)
+				{
+					var updatedItem = value.FirstOrDefault(i => i.Id == item.Id);
+					if (updatedItem != null)
+						item.ItemState = updatedItem.ItemState;
+				}
+
+				SendNotification(Notifications.SyncItemsState);
+			}
+		}
 
 		public void StartNewGame(GameType gameType = GameType.PvE)
 		{
@@ -68,19 +88,19 @@ namespace LastOneOut
 					ItemState = ItemState.OnBoard
 				};
 				GameStateModel.ItemStatuses.Add(status);
-			}			
+			}
 		}
-
+		
 		public void StartNewRound()
 		{
 			GameStateModel.CurrentRoundNumber++;
-		}
+		}			
 
 		// Returns true, if AI should make a move. False, if its players move.
 		public bool IsAiRound()
 		{
 			var roundModulo = (GameStateModel.CurrentRoundNumber % 2 == 0) ? RoundModulo.Even : RoundModulo.Odd;
-			var isAiRound = turnIsAiInput[new Tuple<GameType, RoundModulo>(GameStateModel.GameType, roundModulo)];
+			var isAiRound = roundIsAiInput[new Tuple<GameType, RoundModulo>(GameStateModel.GameType, roundModulo)];
 
 			Debug.LogFormat("This is {0} round. It is {1} (even/odd). Due to {2} game type, IsAiRound is {3}", GameStateModel.CurrentRoundNumber, roundModulo, GameStateModel.GameType, isAiRound);
 			return isAiRound;

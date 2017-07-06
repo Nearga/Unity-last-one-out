@@ -9,8 +9,9 @@ namespace LastOneOut
 		{
 			base.Execute(notification);
 			Debug.Log("StartRoundCommand");
-
-			var gameStateModel = UnityFacade.GetInstance().RetrieveProxy<GameStateProxy>().GameStateModel;
+			
+			if (gameStateProxy.IsAiRound())
+				SendNotification(Notifications.AiInput);
 		}
 	}
 }

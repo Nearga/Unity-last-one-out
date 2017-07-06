@@ -19,6 +19,7 @@ namespace LastOneOut
 
 		private List<ItemControl> items = new List<ItemControl>();
 		private GameSettingsProxy gameSettingsProxy;
+		private GameStateProxy gameStateProxy;
 
 		public override void OnEnable()
 		{
@@ -26,12 +27,13 @@ namespace LastOneOut
 			base.OnEnable();
 
 			gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
+			gameStateProxy = UnityFacade.GetInstance().RetrieveProxy<GameStateProxy>();
 		}
 
 		override protected Type GetMediatorType() { return typeof(InGameMediator); }
 
 
-		public void GenerateItems()
+		public void GenerateItems() // TODO: merge this with SyncItems
 		{
 			if (TableGameObject == null)
 				TableGameObject = GameObject.FindGameObjectWithTag("Table");
@@ -41,6 +43,16 @@ namespace LastOneOut
 			for (int i = 0; i < gameSettingsProxy.GameSettings.TotalItems; i++)
 			{
 				AddItem(i);
+			}
+		}
+
+		public void SyncItems()
+		{
+			foreach (var item in gameStateProxy.ItemStatuses)
+			{
+				var existingItem = items.FirstOrDefault(i => i.Id == item.Id);
+				if (existingItem != null)
+					SetState(existingItem, item.ItemState);
 			}
 		}
 
@@ -75,6 +87,27 @@ namespace LastOneOut
 			var currentPos = Vector3.Lerp(leftmostItemPos, rightmostItemPos, itemsLerp);
 
 			return currentPos;
+		}
+
+		private void SetState(ItemControl item, ItemState state)
+		{
+			switch (state)
+			{
+				case ItemState.OnBoard:
+					item.SetMaterial(MaterialType.Normal);
+					break;
+				case ItemState.SelectedPickable:
+					item.SetMaterial(MaterialType.Selected);
+					break;
+				case ItemState.SelectedUnpickable:
+					item.SetMaterial(MaterialType.Forbidden);
+					break;
+				case ItemState.OffBoard:
+					item.SetMaterial(MaterialType.Hidden);
+					break;
+				default:
+					break;
+			}
 		}
 
 		#endregion
