@@ -12,11 +12,12 @@
 
 		// Game
 		public const string StartGame = "StartGame";
+		public const string StartRound = "StartRound";
 
-		public const string PointerEnter = "PointerEnter";
+		public const string PointerEnter = "PointerEnter"; // User input reactions
 		public const string PointerExit = "PointerExit";
 		public const string PointerClicked = "PointerClicked";
 
-		public const string SetItemState = "SetItemState";
+		public const string SyncItemsState = "SyncItemsState"; // When GameStateProxy contains solved state and InGameView should be updated 
 	}
 }

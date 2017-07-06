@@ -19,7 +19,7 @@ namespace LastOneOut
 	public class GameStateModel
 	{
 		public GameType GameType { get; set; }
-		public int CurrentTurnNumber { get; set; }
+		public int CurrentRoundNumber { get; set; }
 		public List<ItemStatus> ItemStatuses { get; set; }
 	}
 }

@@ -66,6 +66,7 @@ namespace LastOneOut
 		private void HandleStartGameNotification()
 		{
 			inGameView.GenerateItems();
+			SendNotification(Notifications.StartRound);
 		}
 		
 

@@ -9,6 +9,7 @@ namespace LastOneOut
 			base.InitializeController();
 
 			RegisterCommand(Notifications.StartGame, () => new StartGameCommand());
+			RegisterCommand(Notifications.StartRound, () => new StartRoundCommand());
 
 			RegisterCommand(Notifications.PointerEnter, () => new ProcessPointerEnterCommand());
 			RegisterCommand(Notifications.PointerExit, () => new ProcessPointerExitCommand());
