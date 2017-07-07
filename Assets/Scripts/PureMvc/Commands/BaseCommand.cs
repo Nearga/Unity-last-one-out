@@ -2,6 +2,12 @@
 using PureMVC.Interfaces;
 using PureMVC.Patterns.Command;
 
+public enum InputType
+{
+	AiInput, 
+	UserInput
+}
+
 public class BaseCommand : SimpleCommand
 {
 	protected GameStateProxy gameStateProxy;

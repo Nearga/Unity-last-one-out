@@ -1,4 +1,5 @@
 ﻿using PureMVC.Interfaces;
+using System;
 using UnityEngine;
 
 namespace LastOneOut
@@ -9,9 +10,11 @@ namespace LastOneOut
 		{
 			base.Execute(notification);
 
-			if (gameStateProxy.IsAiRound())
+			var inputType = (InputType)Enum.Parse(typeof(InputType), notification.Type);
+
+			if (gameStateProxy.IsAiRound() && inputType == InputType.UserInput)
 			{
-				Debug.Log("ProcessPointerExitCommand: Waiting for AI input");
+				//Debug.Log("ProcessPointerEnterCommand: Waiting for AI input");
 				return;
 			}
 

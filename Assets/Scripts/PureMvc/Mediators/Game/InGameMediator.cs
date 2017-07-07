@@ -15,7 +15,13 @@ namespace LastOneOut
 		public override string[] ListNotificationInterests()
 		{
 			var list = base.ListNotificationInterests().ToList();
-			list.AddRange(new List<string> { Notifications.StartGame, Notifications.SyncItemsState, Notifications.PointerClicked, Notifications.PointerEnter, Notifications.PointerExit  });
+			list.AddRange(new List<string> {
+				Notifications.StartGame,
+				Notifications.StartNewRound,
+				Notifications.SyncItemsState,
+				Notifications.PointerClicked,
+				Notifications.PointerEnter,
+				Notifications.PointerExit  });
 			return list.ToArray();
 		}
 
@@ -50,6 +56,7 @@ namespace LastOneOut
 
 		public override void HandleNotification(INotification notification)
 		{
+			base.HandleNotification(notification);
 			//Debug.Log("Handling " + notification.Name);
 
 			switch (notification.Name)
@@ -59,6 +66,9 @@ namespace LastOneOut
 					break;
 				case Notifications.SyncItemsState:
 					HandleSyncItemsState();
+					break;
+				case Notifications.StartNewRound:
+					HandleStartNewRound();
 					break;
 				default:
 					break;
@@ -75,6 +85,14 @@ namespace LastOneOut
 		private void HandleSyncItemsState()
 		{
 			inGameView.SyncItems();
+		}
+
+		private void HandleStartNewRound()
+		{
+			var gameState = UnityFacade.GetInstance().RetrieveProxy<GameStateProxy>();
+			inGameView.SetItemsLeftText(gameState.ItemsLeft);
+			inGameView.SetRoundNumber(gameState.CurrentRoundNumber, gameState.GameState);
+			inGameView.SetPlayerTurnText(gameState.IsFirstPlayerRound());
 		}
 
 		#endregion

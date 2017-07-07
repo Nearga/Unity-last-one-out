@@ -1,10 +1,17 @@
 ﻿using PureMVC.Patterns.Proxy;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace LastOneOut
 {
+	public enum GameState
+	{
+		Started, 
+		Player1Won,
+		Player2Won,
+		Stopped
+	}
+
 	public enum GameType
 	{
 		PvP,
@@ -27,10 +34,14 @@ namespace LastOneOut
 
 		protected GameStateModel GameStateModel { get; private set; }
 
+		private GameSettingsProxy gameSettingsProxy;
+		private GameState gameState;
+
 		public override void OnRegister()
 		{
 			GameStateModel = new GameStateModel();
 		}
+		
 
 		#region Is AI round
 
@@ -77,9 +88,23 @@ namespace LastOneOut
 			private set { GameStateModel.CurrentRoundNumber = value; }
 		}
 
+		public int ItemsLeft
+		{
+			get { return ItemModelsList.Where(i => i.ItemState != ItemState.OffBoard).Count(); }
+		}
+
+		public GameState GameState
+		{
+			private set { gameState = value; }
+			get { return gameState; }
+		}
+
+
 		public void StartNewGame(GameType gameType = GameType.PvE)
 		{
-			var gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
+			gameSettingsProxy = UnityFacade.GetInstance().RetrieveProxy<GameSettingsProxy>();
+
+			GameState = GameState.Started;
 
 			GameStateModel.CurrentRoundNumber = 0;
 			GameStateModel.GameType = gameType; // Default is PvE
@@ -99,11 +124,19 @@ namespace LastOneOut
 		
 		public void StartNewRound()
 		{
-			GameStateModel.CurrentRoundNumber++;
+			if (ItemsLeft > 0)
+			{
+				GameStateModel.CurrentRoundNumber++;
+				return;
+			}
+
+			gameState = gameSettingsProxy.GameSettings.IsLastWinner
+				? (IsFirstPlayerRound() ? GameState.Player2Won : GameState.Player1Won) // Fastfix. Fix properly later.
+				: (IsFirstPlayerRound() ? GameState.Player1Won : GameState.Player2Won);
 		}
 
 		/// <summary>
-		/// Defines, which player's turn it is.
+		/// Defines, which player's round is it now.
 		/// </summary>
 		/// <returns>True if its first player turn. False if its second player turn</returns>
 		public bool IsFirstPlayerRound()
@@ -116,7 +149,7 @@ namespace LastOneOut
 		/// </summary>
 		/// <returns>True, if AI should make a move. False, if player should move.</returns>
 		public bool IsAiRound()
-		{			
+		{
 			var isAiRound = roundIsAiInput[new Tuple<GameType, RoundModulo>(GameStateModel.GameType, RoundOddness())];
 
 			//Debug.LogFormat("This is {0} round. It is {1} (even/odd). Due to {2} game type, IsAiRound is {3}", GameStateModel.CurrentRoundNumber, roundModulo, GameStateModel.GameType, isAiRound);

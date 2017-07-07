@@ -10,7 +10,7 @@ namespace LastOneOut
 		{
 			StartCoroutine(OnceEnumerator(delay, action));
 		}
-
+		
 		public void Repeat(int loops, float delay, Action action)
 		{
 			StartCoroutine(RepeatEnumerator(loops, delay, action));

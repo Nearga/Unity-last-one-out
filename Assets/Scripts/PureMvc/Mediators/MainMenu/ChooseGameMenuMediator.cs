@@ -29,9 +29,8 @@ namespace LastOneOut
 			chooseGameView.BackButton.RemoveListenersAndSubscribe(BackClicked);
 
 			// WIP. Not sure i'd have time to implement it, but it can be implemented fast enough.
-			chooseGameView.PlayerVsBotButton.interactable = false;
-			chooseGameView.BotVsPlayerButton.interactable = false;
-			chooseGameView.ButVsBotButton.interactable = false;
+			//chooseGameView.BotVsPlayerButton.interactable = false;
+			//chooseGameView.ButVsBotButton.interactable = false;
 		}
 
 		#region Events

@@ -16,5 +16,5 @@ namespace LastOneOut
 			RegisterCommand(Notifications.PointerExit, () => new ProcessPointerExitCommand());
 			RegisterCommand(Notifications.PointerClicked, () => new ProcessPointerClickedCommand());
 		}
-	}		
+	}
 }

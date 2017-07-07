@@ -23,10 +23,17 @@ namespace LastOneOut
 
 		public override void HandleNotification(INotification notification)
 		{
-			// Hide current View
-			var viewGO = ViewComponent as GameObject;
-			//var view = viewGO.GetComponent<ViewComponent>(); 
-			viewGO.SetActive(false);
+			switch (notification.Name)
+			{
+				case Notifications.NavigateFrom:
+					// Hide current View
+					var viewGO = ViewComponent as GameObject;
+					//var view = viewGO.GetComponent<ViewComponent>(); 
+					viewGO.SetActive(false);
+					break;
+				default:
+					break;
+			}
 		}
 
 		protected void SendStartGameNotification(GameType gameType)
