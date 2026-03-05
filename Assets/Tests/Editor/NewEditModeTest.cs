@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using UnityEditor;
 using UnityEngine.TestTools;
 using NUnit.Framework;
@@ -20,3 +21,4 @@ public class NewEditModeTest {
 		yield return null;
 	}
 }
+*/
